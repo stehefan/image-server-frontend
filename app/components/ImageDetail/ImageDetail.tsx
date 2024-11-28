@@ -18,7 +18,7 @@ export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
         });
 
         if (response.ok) {
-            await router.push('/');
+            router.push('/');
         }
     };
 
@@ -29,7 +29,7 @@ export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
                 <div className="text-left">{image.id}</div>
                 <div className="text-right font-extrabold">Image ObjectID:</div>
                 <div className="text-left">{image.objectId}</div>
-                <div className="col-span-2">
+                <div className="col-span-2 flex justify-center">
                     <button
                         onClick={handleDelete}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
