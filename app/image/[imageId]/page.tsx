@@ -10,7 +10,7 @@ export default async function ImagePage({ params }: { params: Promise<{ imageId:
         return (<div>Error: imageId needs to be a number</div>);
     }
 
-    const result = await fetch('http://localhost:3000/image/' + imageId, { cache: 'force-cache' });
+    const result = await fetch('http://localhost:3000/api/image/' + imageId, { cache: 'force-cache' });
     const data = await result.json();
 
     if (!result.ok) {

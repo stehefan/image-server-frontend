@@ -1,12 +1,27 @@
-import { ImageResponse } from '@/types'
-import Image from 'next/image'
-import Link from 'next/link'
+'use client';
+
+import { ImageResponse } from '@/types';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ImageDetailProps {
-    image: ImageResponse
+    image: ImageResponse;
 }
 
 export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
+    const router = useRouter();
+
+    const handleDelete = async () => {
+        const response = await fetch(`/api/image/${image.id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            await router.push('/');
+        }
+    };
+
     return (
         <div className="image-detail flex flex-col items-center justify-center mt-10 gap-10">
             <div className="grid grid-cols-2 gap-4">
@@ -14,6 +29,15 @@ export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
                 <div className="text-left">{image.id}</div>
                 <div className="text-right font-extrabold">Image ObjectID:</div>
                 <div className="text-left">{image.objectId}</div>
+                <div className="col-span-2">
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Delete Image
+                    </button>
+                </div>
+
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-2 w-screen pl-5 pr-5">
                 {image.dimensions && image.dimensions.map(dimension => (
@@ -46,7 +70,7 @@ export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ImageDetail
+export default ImageDetail;

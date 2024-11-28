@@ -1,7 +1,7 @@
 import { ImageList } from '@/components/ImageList/ImageList';
 
 export default async function Home() {
-    const data = await fetch('http://localhost:3000/image', { cache: 'force-cache' });
+    const data = await fetch('http://localhost:3000/api/image', { cache: 'force-cache' });
     const result = await data.json();
 
     if (!data.ok) return <div>{result}</div>;

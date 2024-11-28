@@ -1,9 +1,9 @@
-import { AccessibleDimension, ImageResponse } from '@/types'
-import Image from 'next/image'
-import Link from 'next/link'
+import { AccessibleDimension, ImageResponse } from '@/types';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export interface ImageListProps {
-    images: ImageResponse[]
+    images: ImageResponse[];
 }
 
 export function ImageList({ images }: ImageListProps) {
@@ -11,9 +11,9 @@ export function ImageList({ images }: ImageListProps) {
         <div className="flex flex-row flex-wrap gap-4 flex-shrink">
             {images.map((image) => {
                 if (image.dimensions?.length === 0) {
-                    return null
+                    return null;
                 }
-                const firstDimension: AccessibleDimension = image.dimensions![0]
+                const firstDimension: AccessibleDimension = image.dimensions![0];
                 return (
                     <Link href={`/image/${image.id}`} key={image.id}>
                         <Image
@@ -24,8 +24,8 @@ export function ImageList({ images }: ImageListProps) {
                             height={firstDimension.height / 10}
                         />
                     </Link>
-                )
+                );
             })}
         </div>
-    )
+    );
 }
