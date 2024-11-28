@@ -1,17 +1,17 @@
-import ImageDetail from '@/components/ImageDetail/ImageDetail'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import ImageDetail from '@/components/ImageDetail/ImageDetail';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default async function ImagePage({ params }: { params: Promise<{ imageId: string }> }) {
-    const imageId = Number.parseInt((await params).imageId)
+    const imageId = Number.parseInt((await params).imageId);
 
     if (Number.isNaN(imageId)) {
-        return (<div>Error: imageId needs to be a number</div>)
+        return (<div>Error: imageId needs to be a number</div>);
     }
 
-    const result = await fetch('http://localhost:3000/image/' + imageId)
-    const data = await result.json()
+    const result = await fetch('http://localhost:3000/image/' + imageId, { cache: 'force-cache' });
+    const data = await result.json();
 
     if (!result.ok) {
         return (
@@ -19,7 +19,7 @@ export default async function ImagePage({ params }: { params: Promise<{ imageId:
                 Error:
                 {data}
             </div>
-        )
+        );
     }
 
     return (
@@ -35,5 +35,5 @@ export default async function ImagePage({ params }: { params: Promise<{ imageId:
                 <ImageDetail image={data} />
             </main>
         </div>
-    )
+    );
 }

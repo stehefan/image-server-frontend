@@ -1,10 +1,10 @@
-import { ImageList } from '@/components/ImageList/ImageList'
+import { ImageList } from '@/components/ImageList/ImageList';
 
 export default async function Home() {
-    const data = await fetch('http://localhost:3000/image')
-    const result = await data.json()
+    const data = await fetch('http://localhost:3000/image', { cache: 'force-cache' });
+    const result = await data.json();
 
-    if (!data.ok) return <div>{result}</div>
+    if (!data.ok) return <div>{result}</div>;
 
     return (
         <div
@@ -19,6 +19,7 @@ export default async function Home() {
             <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
                 <span>
                     Created by
+                    {' '}
                     <a href="https://www.stefanlier.de/">Stefan</a>
                     {' '}
                     <i>for</i>
@@ -27,5 +28,5 @@ export default async function Home() {
                 </span>
             </footer>
         </div>
-    )
+    );
 }
