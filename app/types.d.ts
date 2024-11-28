@@ -1,16 +1,16 @@
 export type Dimension = {
-    id: number;
-    name: string;
-    width: number;
-    height: number;
+    id: number
+    name: string
+    width: number
+    height: number
 }
 
 export type AccessibleDimension = Dimension & {
-    href: string;
+    href: string
 }
 
 export type ImageResponse = {
-    id: number;
-    objectId: string;
-    dimensions?: AccessibleDimension[];
+    id: number
+    objectId: string
+    dimensions?: AccessibleDimension[]
 }
