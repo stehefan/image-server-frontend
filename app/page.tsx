@@ -1,10 +1,8 @@
 import { ImageList } from '@/components/ImageList/ImageList';
+import { getImages } from '@/service/image';
 
 export default async function Home() {
-    const data = await fetch('http://localhost:3000/api/image', { cache: 'force-cache' });
-    const result = await data.json();
-
-    if (!data.ok) return <div>{result}</div>;
+    const images = await getImages();
 
     return (
         <div
@@ -14,7 +12,7 @@ export default async function Home() {
                 <h1 className="text-3xl font-bold">Image listing</h1>
             </header>
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-                <ImageList images={result} />
+                <ImageList images={images} />
             </main>
             <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
                 <span>

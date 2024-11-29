@@ -4,6 +4,7 @@ import { ImageResponse } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface ImageDetailProps {
     image: ImageResponse;
@@ -11,6 +12,7 @@ interface ImageDetailProps {
 
 export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
     const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
 
     const handleDelete = async () => {
         const response = await fetch(`/api/image/${image.id}`, {
@@ -19,6 +21,9 @@ export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
 
         if (response.ok) {
             router.push('/');
+        }
+        else {
+            setError('Failed to delete image - please try again later.');
         }
     };
 
@@ -37,7 +42,7 @@ export const ImageDetail: React.FC<ImageDetailProps> = ({ image }) => {
                         Delete Image
                     </button>
                 </div>
-
+                {error && <div className="text-red-500">{error}</div>}
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-2 w-screen pl-5 pr-5">
                 {image.dimensions && image.dimensions.map(dimension => (

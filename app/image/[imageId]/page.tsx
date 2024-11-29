@@ -2,6 +2,7 @@ import ImageDetail from '@/components/ImageDetail/ImageDetail';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { getImage } from '@/service/image';
 
 export default async function ImagePage({ params }: { params: Promise<{ imageId: string }> }) {
     const imageId = Number.parseInt((await params).imageId);
@@ -10,17 +11,7 @@ export default async function ImagePage({ params }: { params: Promise<{ imageId:
         return (<div>Error: imageId needs to be a number</div>);
     }
 
-    const result = await fetch('http://localhost:3000/api/image/' + imageId, { cache: 'force-cache' });
-    const data = await result.json();
-
-    if (!result.ok) {
-        return (
-            <div>
-                Error:
-                {data}
-            </div>
-        );
-    }
+    const image = await getImage(imageId);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -32,7 +23,7 @@ export default async function ImagePage({ params }: { params: Promise<{ imageId:
                 </Link>
             </span>
             <main className="w-full">
-                <ImageDetail image={data} />
+                <ImageDetail image={image} />
             </main>
         </div>
     );
